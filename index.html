@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Ejercicio 1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="resultados"></div>
+        <script type="text/javascript">
+            
+            let N;
+            do{
+                let inputN=prompt("Dime las calificaciones que desea Introducir");
+                    N=parseInt(inputN);
+            }while(N<=0);
+            
+            let notas=[];
+            let textoSalida = "<h2>Desglose de notas:</h2>";
+            for(let i=0;i<N;i++){
+                let nota;
+                do {
+                    let inputnota=prompt(`Introduce la calificacion${i+1}`);
+                    nota=parseFloat(inputnota);
+        } while(nota<0 ||nota>10);
+        notas.push(nota);
+        
+        let nivel="";
+        if(nota>=8&&nota<=10.0){
+            nivel="Sobresaliente";
+        }else if(nota>=6.0&&nota<=8.0){
+            nivel="Notable";
+        }else if(nota>=4.0 &&nota<6.0){
+            nivel="Aprobado";
+        }else if(nota>=0&& nota <4.0){
+            nivel="Suspenso";
+        }
+        textoSalida += `Nota ${i + 1}: ${nota} - <strong>${nivel}</strong><br>`;
+            }
+            let maxNota=Math.max(...notas);
+            let minNota=Math.min(...notas);
+            
+            
+            let suma=0;
+            for(let j=0;j<notas.length;j++){
+                suma +=notas[j];
+            }
+            let media=Math.round((suma/N)*100) /100;
+            
+            let contadorSobresaliente=0,contadorNotable=0,contadorAprobado=0,contadorSuspenso=0;
+            for(let k=0;k<notas.length;k++){
+                let n=notas[k];
+                if(n>=8.0)contadorSobresaliente++;
+                else if(n>=6.0)contadorNotable++;
+                else if(n>=4.0)contadorAprobado++;
+                else contadorSuspenso++;
+            }
+            const calcPorcentaje = (cantidad) => Math.round((cantidad / N) * 100);
+            let ordenadasMenorMayor = [...notas].sort((a, b) => a - b);
+        let ordenadasMayorMenor = [...notas].sort((a, b) => b - a);
+            
+            textoSalida += `<h2>Resumen:</h2>
+            <strong>Media:</strong> ${media} <br>
+            <strong>Nota Máxima:</strong> ${maxNota} <br>
+            <strong>Nota Mínima:</strong> ${minNota} <br>
+            <br>
+            <strong>Sobresalientes:</strong> ${contadorSobresaliente} (${calcPorcentaje(contadorSobresaliente)}%) <br>
+            <strong>Notables:</strong> ${contadorNotable} (${calcPorcentaje(contadorNotable)}%) <br>
+            <strong>Aprobados:</strong> ${contadorAprobado} (${calcPorcentaje(contadorAprobado)}%) <br>
+            <strong>Suspensos:</strong> ${contadorSuspenso} (${calcPorcentaje(contadorSuspenso)}%) <br>
+            <br>
+            <strong>Ordenadas (Mayor a menor):</strong> ${ordenadasMayorMenor.join(", ")} <br>
+            <strong>Ordenadas (Menor a mayor):</strong> ${ordenadasMenorMayor.join(", ")} <br>`;
+            
+            document.getElementById("resultados").innerHTML = textoSalida;
+        </script>
+    </body>
+</html>
