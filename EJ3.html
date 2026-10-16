@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>EJERCICIO 3</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <script>
+            let codigo = prompt("Introduce el código de la actividad deportiva:");
+            let resultado = "";
+            for (let i = 0; i < codigo.length; i++) {
+                let caracter = codigo.charAt(i);
+                if (i % 3 === 0) {
+                    caracter = caracter.toLowerCase();
+                } else if (i % 5 === 0) {
+                    caracter = "*";
+                } else if (i % 2 === 0) {
+                    caracter = caracter.toUpperCase();
+                }
+                resultado += caracter;
+            }
+            alert(resultado);
+        </script>
+    </body>
+</html>
