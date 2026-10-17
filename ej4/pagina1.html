@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Generador de paletas de colores</title>
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                background-color: #f2f2f2;
+                padding: 30px;
+            }
+
+            h1 {
+                color: #333;
+            }
+
+            #paleta {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+                margin-top: 30px;
+            }
+
+            .color {
+                width: 150px;
+                height: 180px;
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+                padding-bottom: 20px;
+                border-radius: 12px;
+                cursor: pointer;
+                box-shadow: 0 3px 8px #aaa;
+                font-weight: bold;
+            }
+
+            button {
+                padding: 12px 25px;
+                background-color: #333;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <h1>Generador de paletas de colores</h1>
+
+        <p>Pulsa el botón para generar cinco colores aleatorios.</p>
+
+        <button onclick="generarPaleta()">Generar paleta</button>
+
+        <div id="paleta"></div>
+
+        <p id="mensaje" aria-live="polite"></p>
+
+        <p>
+            Fragmento original:
+            <a href="https://css-tricks.com/snippets/javascript/random-hex-color/">
+                CSS-Tricks - Random Hex Color
+            </a>
+        </p>
+
+        <script>
+            // Genera un color hexadecimal aleatorio.
+            // Basado en el snippet "Random Hex Color" de CSS-Tricks.
+            function generarColor() {
+                return '#' + Math.floor(Math.random() * 16777215)
+                        .toString(16).padStart(6, '0');
+            }
+
+            // Genera una paleta formada por cinco colores.
+            function generarPaleta() {
+                const paleta = document.getElementById("paleta");
+                paleta.innerHTML = "";
+
+                for (let i = 0; i < 5; i++) {
+                    const codigo = generarColor();
+
+                    const cuadro = document.createElement("div");
+                    cuadro.className = "color";
+                    cuadro.style.backgroundColor = codigo;
+                    cuadro.textContent = codigo.toUpperCase();
+
+                    // Al pulsar el color, copia su código.
+                    cuadro.addEventListener("click", function () {
+                        copiarColor(codigo);
+                    });
+
+                    paleta.appendChild(cuadro);
+                }
+
+                document.getElementById("mensaje").textContent = "";
+            }
+
+            // Copia el color seleccionado al portapapeles.
+            async function copiarColor(codigo) {
+                try {
+                    await navigator.clipboard.writeText(codigo);
+
+                    document.getElementById("mensaje").textContent =
+                            "¡Color " + codigo.toUpperCase() + " copiado!";
+                } catch (error) {
+                    document.getElementById("mensaje").textContent =
+                            "No se pudo copiar automáticamente. Código: " + codigo;
+                }
+            }
+
+            // Genera la primera paleta al cargar la página.
+            generarPaleta();
+        </script>
+
+    </body>
+</html>
