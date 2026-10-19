@@ -11,19 +11,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <body>
         <script>
             let codigo = prompt("Introduce el código de la actividad deportiva:");
-            let resultado = "";
-            for (let i = 0; i < codigo.length; i++) {
-                let caracter = codigo.charAt(i);
-                if (i % 3 === 0) {
-                    caracter = caracter.toLowerCase();
-                } else if (i % 5 === 0) {
-                    caracter = "*";
-                } else if (i % 2 === 0) {
-                    caracter = caracter.toUpperCase();
+            if (codigo !== null) {
+                let resultado = "";
+                for (let i = 0; i < codigo.length; i++) {
+                    let caracter = codigo.charAt(i);
+                    if (i === 0) {
+                        caracter = caracter.toUpperCase();
+                    } else if (i % 5 === 0) {
+                        caracter = "*";
+                    } else if (i % 3 === 0) {
+                        caracter = caracter.toLowerCase();
+                    } else if (i % 2 === 0) {
+                        caracter = caracter.toUpperCase();
+                    }
+                    resultado += caracter;
                 }
-                resultado += caracter;
+                alert(resultado);
             }
-            alert(resultado);
         </script>
     </body>
 </html>

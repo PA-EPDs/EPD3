@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 2 - Quiz de Informática</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f0fe;
+            text-align: center;
+            padding: 40px 15px;
+        }
+
+        #juego {
+            background-color: white;
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px #aaa;
+        }
+
+        h1 {
+            color: #1f4e79;
+        }
+
+        .respuesta {
+            display: block;
+            width: 90%;
+            padding: 15px;
+            margin: 10px auto;
+            border: 2px solid #1f4e79;
+            border-radius: 8px;
+            background-color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .respuesta:hover:not(:disabled) {
+            background-color: #dbe8ff;
+        }
+
+        .respuesta:disabled {
+            cursor: default;
+        }
+
+        #siguiente {
+            padding: 12px 25px;
+            background-color: #1f4e79;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        #siguiente:hover:not(:disabled) {
+            background-color: #153755;
+        }
+
+        #siguiente:disabled {
+            background-color: #aaa;
+            cursor: default;
+        }
+
+        #resultado {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .volver-hub {
+            display: inline-block;
+            margin-top: 25px;
+            color: #1f4e79;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .volver-hub:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="juego">
+        <h1>Quiz de informática</h1>
+        <p>¡Pon a prueba tus conocimientos!</p>
+
+        <p id="contador" style="font-weight: bold; color: #555; margin-top: 10px;"></p>
+
+        <h2 id="pregunta" style="margin: 20px 0 15px 0; font-size: 20px;"></h2>
+
+        <div id="respuestas"></div>
+
+        <p id="resultado" aria-live="polite"></p>
+
+        <button id="siguiente" onclick="siguientePregunta()" disabled>
+            Siguiente pregunta
+        </button>
+
+        <p style="margin-top: 20px; font-size: 13px; color: #555;">
+            Fuente del snippet:
+            <a href="https://css-tricks.com/snippets/javascript/select-random-item-array/" target="_blank">
+                CSS-Tricks - Select Random Item from an Array
+            </a>
+        </p>
+
+        <p><a href="index.html" class="volver-hub">&larr; Volver al índice del Ejercicio 4</a> | <a href="../index.html" class="volver-hub">Volver al índice general</a></p>
+    </div>
+
+    <script>
+        // Banco de preguntas del juego.
+        const preguntas = [
+            {
+                pregunta: "¿Qué significa HTML?",
+                opciones: [
+                    "HyperText Markup Language",
+                    "HighText Machine Language",
+                    "HyperTool Multi Language",
+                    "Home Tool Markup Language"
+                ],
+                correcta: 0
+            },
+            {
+                pregunta: "¿Para qué se utiliza CSS?",
+                opciones: [
+                    "Para guardar bases de datos",
+                    "Para dar estilo a las páginas web",
+                    "Para crear servidores",
+                    "Para instalar programas"
+                ],
+                correcta: 1
+            },
+            {
+                pregunta: "¿Qué lenguaje permite añadir interactividad a una web?",
+                opciones: [
+                    "HTML",
+                    "CSS",
+                    "JavaScript",
+                    "SQL"
+                ],
+                correcta: 2
+            },
+            {
+                pregunta: "¿Qué método escribe mensajes en la consola?",
+                opciones: [
+                    "console.log()",
+                    "document.write()",
+                    "alert()",
+                    "console.read()"
+                ],
+                correcta: 0
+            },
+            {
+                pregunta: "¿Qué símbolo se utiliza para escribir un comentario de una línea en JavaScript?",
+                opciones: [
+                    "<!-- -->",
+                    "##",
+                    "//",
+                    "**"
+                ],
+                correcta: 2
+            }
+        ];
+
+        let preguntasPendientes = [...preguntas];
+        let puntuacion = 0;
+        let numeroPregunta = 0;
+        let preguntaActual;
+        let respondida = false;
+
+        // Basado en el snippet "Select Random Item from an Array".
+        // Selecciona un elemento aleatorio de un array.
+        function seleccionarAleatorio(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        // Muestra una pregunta elegida al azar.
+        function mostrarPregunta() {
+            respondida = false;
+            numeroPregunta++;
+            preguntaActual = seleccionarAleatorio(preguntasPendientes);
+
+            // Eliminamos la pregunta para evitar repeticiones.
+            const indice = preguntasPendientes.indexOf(preguntaActual);
+            preguntasPendientes.splice(indice, 1);
+
+            document.getElementById("contador").textContent =
+                    "Pregunta " + numeroPregunta + " de " + preguntas.length +
+                    " | Aciertos: " + puntuacion;
+
+            document.getElementById("pregunta").textContent =
+                    preguntaActual.pregunta;
+
+            document.getElementById("resultado").textContent = "";
+            document.getElementById("siguiente").disabled = true;
+
+            const contenedor = document.getElementById("respuestas");
+            contenedor.innerHTML = "";
+
+            preguntaActual.opciones.forEach(function (opcion, indice) {
+                const boton = document.createElement("button");
+                boton.className = "respuesta";
+                boton.textContent = opcion;
+                boton.addEventListener("click", function () {
+                    comprobarRespuesta(indice);
+                });
+                contenedor.appendChild(boton);
+            });
+        }
+
+        // Comprueba si la respuesta elegida es correcta.
+        function comprobarRespuesta(indice) {
+            if (respondida) {
+                return;
+            }
+
+            respondida = true;
+            const botones = document.querySelectorAll(".respuesta");
+
+            botones.forEach(function (boton, i) {
+                boton.disabled = true;
+                if (i === preguntaActual.correcta) {
+                    boton.style.backgroundColor = "#b7efc5";
+                } else if (i === indice) {
+                    boton.style.backgroundColor = "#ffb3b3";
+                }
+            });
+
+            if (indice === preguntaActual.correcta) {
+                puntuacion++;
+                document.getElementById("resultado").textContent =
+                        "¡Correcto! Has acertado.";
+                document.getElementById("resultado").style.color = "#166534";
+            } else {
+                document.getElementById("resultado").textContent =
+                        "Incorrecto. La respuesta correcta era: " +
+                        preguntaActual.opciones[preguntaActual.correcta];
+                document.getElementById("resultado").style.color = "#991b1b";
+            }
+
+            document.getElementById("siguiente").disabled = false;
+
+            if (preguntasPendientes.length === 0) {
+                document.getElementById("siguiente").textContent =
+                        "Ver resultado final";
+            }
+        }
+
+        // Avanza a otra pregunta o termina el juego.
+        function siguientePregunta() {
+            if (!respondida) {
+                return;
+            }
+
+            if (preguntasPendientes.length > 0) {
+                mostrarPregunta();
+            } else {
+                finalizarJuego();
+            }
+        }
+
+        // Muestra la puntuación final.
+        function finalizarJuego() {
+            document.getElementById("contador").textContent = "";
+            document.getElementById("pregunta").textContent =
+                    "¡Juego terminado!";
+
+            document.getElementById("respuestas").innerHTML = "";
+
+            document.getElementById("resultado").textContent =
+                    "Has conseguido " + puntuacion + " de " +
+                    preguntas.length + " respuestas correctas.";
+            document.getElementById("resultado").style.color = "#1f4e79";
+
+            const boton = document.getElementById("siguiente");
+            boton.textContent = "Volver a jugar";
+            boton.disabled = false;
+            boton.onclick = reiniciarJuego;
+        }
+
+        // Reinicia el juego desde el principio.
+        function reiniciarJuego() {
+            preguntasPendientes = [...preguntas];
+            puntuacion = 0;
+            numeroPregunta = 0;
+            respondida = false;
+
+            const boton = document.getElementById("siguiente");
+            boton.textContent = "Siguiente pregunta";
+            boton.onclick = siguientePregunta;
+
+            mostrarPregunta();
+        }
+
+        // Iniciamos el juego al cargar la página.
+        mostrarPregunta();
+    </script>
+
+</body>
+</html>

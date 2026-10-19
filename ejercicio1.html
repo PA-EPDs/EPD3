@@ -16,8 +16,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             let N;
             do{
                 let inputN=prompt("Dime las calificaciones que desea Introducir");
-                    N=parseInt(inputN);
-            }while(N<=0);
+                if (inputN === null) break;
+                N=parseInt(inputN);
+            }while(isNaN(N) || N<=0);
             
             let notas=[];
             let textoSalida = "<h2>Desglose de notas:</h2>";
@@ -25,21 +26,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 let nota;
                 do {
                     let inputnota=prompt(`Introduce la calificacion${i+1}`);
+                    if (inputnota === null) break;
                     nota=parseFloat(inputnota);
-        } while(nota<0 ||nota>10);
-        notas.push(nota);
-        
-        let nivel="";
-        if(nota>=8&&nota<=10.0){
-            nivel="Sobresaliente";
-        }else if(nota>=6.0&&nota<=8.0){
-            nivel="Notable";
-        }else if(nota>=4.0 &&nota<6.0){
-            nivel="Aprobado";
-        }else if(nota>=0&& nota <4.0){
-            nivel="Suspenso";
-        }
-        textoSalida += `Nota ${i + 1}: ${nota} - <strong>${nivel}</strong><br>`;
+                } while(isNaN(nota) || nota<0 || nota>10);
+                notas.push(nota);
+                
+                let nivel="";
+                if(nota>=8.0 && nota<=10.0){
+                    nivel="Sobresaliente";
+                }else if(nota>=6.0 && nota<8.0){
+                    nivel="Notable";
+                }else if(nota>=4.0 && nota<6.0){
+                    nivel="Aprobado";
+                }else if(nota>=0 && nota<4.0){
+                    nivel="Suspenso";
+                }
+                textoSalida += `Nota ${i + 1}: ${nota} - <strong>${nivel}</strong><br>`;
             }
             let maxNota=Math.max(...notas);
             let minNota=Math.min(...notas);

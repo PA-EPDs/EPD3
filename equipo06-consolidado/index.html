@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPD 3: JavaScript Básico - Equipo 06</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            color: #333333;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .contenedor-principal {
+            max-width: 980px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            background-color: #1f4e79;
+            color: #ffffff;
+            padding: 35px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .seccion-info {
+            padding: 25px 30px;
+            background-color: #eef4fa;
+            border-bottom: 1px solid #d0e0f0;
+        }
+
+        .seccion-info h2 {
+            font-size: 18px;
+            color: #1f4e79;
+            margin-bottom: 12px;
+        }
+
+        .tabla-integrantes {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tabla-integrantes th,
+        .tabla-integrantes td {
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .tabla-integrantes th {
+            background-color: #2b5c8f;
+            color: #ffffff;
+        }
+
+        .tabla-integrantes tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .seccion-ejercicios {
+            padding: 35px 30px;
+        }
+
+        .seccion-ejercicios h2 {
+            font-size: 20px;
+            color: #1f4e79;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1f4e79;
+            padding-bottom: 8px;
+        }
+
+        .grid-ejercicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .tarjeta-ejercicio {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .tarjeta-ejercicio:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+            border-color: #1f4e79;
+        }
+
+        .tarjeta-ejercicio h3 {
+            font-size: 17px;
+            color: #1f4e79;
+            margin-bottom: 6px;
+        }
+
+        .tarjeta-ejercicio .badge-responsable {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #334155;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .tarjeta-ejercicio p {
+            font-size: 13px;
+            color: #555555;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        .botones-ejercicio {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .btn-lanzar {
+            display: inline-block;
+            background-color: #1f4e79;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .btn-lanzar:hover {
+            background-color: #153755;
+        }
+
+        .btn-subenlace {
+            display: inline-block;
+            background-color: #f1f5f9;
+            color: #1f4e79;
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .btn-subenlace:hover {
+            background-color: #e2e8f0;
+        }
+
+        .seccion-documentacion {
+            padding: 20px 30px 30px;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .enlaces-doc a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #1f4e79;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .enlaces-doc a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #1f4e79;
+            color: #cbd5e1;
+            padding: 18px 30px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #93c5fd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-principal">
+        <header>
+            <h1>EPD 3: JavaScript Básico (Proyecto Consolidado)</h1>
+            <p>Programación Avanzada &bull; Grado en Ingeniería Informática &bull; Universidad Pablo de Olavide (Curso 2026/2027)</p>
+        </header>
+
+        <section class="seccion-info">
+            <h2>Equipo 06 &bull; Asignación y Responsabilidades</h2>
+            <table class="tabla-integrantes">
+                <thead>
+                    <tr>
+                        <th>Integrante</th>
+                        <th>Ejercicio Asignado</th>
+                        <th>Estado y Responsabilidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Limones Arredondo, Daniel</strong></td>
+                        <td>Ejercicio 1 (Ej1)</td>
+                        <td>Registro y análisis estadístico de calificaciones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quishpe Maldonado, Jonathan Javier</strong></td>
+                        <td>Ejercicio 2 (Ej2)</td>
+                        <td>Cálculo de coste de envío de paquetes y consolidación global</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lillo Jiménez, Paola</strong></td>
+                        <td>Ejercicio 3 (Ej3)</td>
+                        <td>Procesamiento de códigos de actividades deportivas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Martel Pérez Luna, Carolina María</strong></td>
+                        <td>Ejercicio 4 (Ej4)</td>
+                        <td>3 páginas con snippets de JavaScript (CSS-Tricks)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>García Gutiérrez, Alejandro</strong></td>
+                        <td>Ejercicio 5 (Ej5)</td>
+                        <td>Gestión interactiva de actividades del gimnasio</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fernández Castillo, Coraima</strong></td>
+                        <td>Ejercicio 6 (Ej6)</td>
+                        <td>Verificación y registro de reservas vía código QR</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="seccion-ejercicios">
+            <h2>Ejercicios Disponibles para Evaluación</h2>
+            <div class="grid-ejercicios">
+
+                <!-- EJERCICIO 1 -->
+                <div class="tarjeta-ejercicio">
+                    <div>
+                        <h3>Ejercicio 1: Calificaciones</h3>
+                        <span class="badge-responsable">Daniel Limones</span>
+                        <p>Registro dinámico de N notas con validación (0-10), clasificación en 4 niveles de rendimiento, cálculo de media (Math.round), extremos (Math.max, Math.min) y ordenaciones ascendente/descendente numéricas.</p>
+                    </div>
+                    <div class="botones-ejercicio">
+                        <a href="ejercicio1/ejercicio1.html" class="btn-lanzar">Abrir Ejercicio 1 &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 2 -->
+                <div class="tarjeta-ejercicio" style="border-left: 4px solid #1f4e79;">
+                    <div>
+                        <h3>Ejercicio 2: Coste de Envío</h3>
+                        <span class="badge-responsable" style="background: #dbeafe; color: #1e40af;">Jonathan Quishpe</span>
+                        <p>Cálculo de paquetería mediante función modular <code>calcular()</code>. Determina peso volumétrico, peso facturable (Math.ceil), suplemento internacional fijo (12.00 €) y recargo por peso elevado (&gt; 20 kg, +15%). Desglose a dos decimales.</p>
+                    </div>
+                    <div class="botones-ejercicio">
+                        <a href="ejercicio2/ejercicio2.html" class="btn-lanzar">Abrir Ejercicio 2 &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 3 -->
+                <div class="tarjeta-ejercicio">
+                    <div>
+                        <h3>Ejercicio 3: Códigos Deportivos</h3>
+                        <span class="badge-responsable">Paola Lillo</span>
+                        <p>Transformación de cadenas usando <code>charAt()</code> con reglas de prioridad estricta: posición 0 par a mayúsculas, múltiplos de 5 a '*', múltiplos de 3 a minúsculas y pares a mayúsculas. Verificado con 'natacion2025'.</p>
+                    </div>
+                    <div class="botones-ejercicio">
+                        <a href="ejercicio3/ejercicio3.html" class="btn-lanzar">Abrir Ejercicio 3 &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 4 -->
+                <div class="tarjeta-ejercicio">
+                    <div>
+                        <h3>Ejercicio 4: Snippets CSS-Tricks</h3>
+                        <span class="badge-responsable">Carolina Martel</span>
+                        <p>Tres aplicaciones interactivas basadas en snippets de CSS-Tricks con diseño enriquecido: generador de paletas hex, quiz interactivo de informática y simulador de sorteos con mezcla Fisher-Yates.</p>
+                    </div>
+                    <div class="botones-ejercicio">
+                        <a href="ejercicio4/index.html" class="btn-lanzar">Ver Hub Ejercicio 4 &rarr;</a>
+                        <a href="ejercicio4/pagina1.html" class="btn-subenlace">Pág. 1</a>
+                        <a href="ejercicio4/pagina2.html" class="btn-subenlace">Pág. 2</a>
+                        <a href="ejercicio4/pagina3.html" class="btn-subenlace">Pág. 3</a>
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 5 -->
+                <div class="tarjeta-ejercicio">
+                    <div>
+                        <h3>Ejercicio 5: Gestión Gimnasio</h3>
+                        <span class="badge-responsable">Alejandro García</span>
+                        <p>Gestor de actividades con vector de objetos (10 disciplinas). Menú interactivo do-while para listar actividades, reservar plazas, liberar plazas y agregar nuevas actividades con actualización en tiempo real.</p>
+                    </div>
+                    <div class="botones-ejercicio">
+                        <a href="ejercicio5/ejercicio5.html" class="btn-lanzar">Abrir Ejercicio 5 &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- EJERCICIO 6 -->
+                <div class="tarjeta-ejercicio">
+                    <div>
+                        <h3>Ejercicio 6: Reserva QR</h3>
+                        <span class="badge-responsable">Coraima Fernández</span>
+                        <p>Simulador de lectura de QR en gimnasio. Extrae parámetros de URL, valida actividad, duración y cupo, calcula tarifa base con suplementos/descuentos y genera tabla con veredicto final.</p>
+                    </div>
+                    <div class="botones-ejercicio">
+                        <a href="ejercicio6/ejercicio6.html" class="btn-lanzar">Abrir Ejercicio 6 &rarr;</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="seccion-documentacion">
+            <div class="enlaces-doc">
+                <a href="leeme.txt" target="_blank">&bull; Ver leeme.txt (Documentación Técnica)</a>
+                <a href="equipo06.txt" target="_blank">&bull; Ver equipo06.txt (Integrantes)</a>
+            </div>
+            <div style="font-size: 13px; color: #64748b;">
+                Cada ejercicio se encuentra en su propia carpeta independiente según las instrucciones del guión.
+            </div>
+        </section>
+
+        <footer>
+            <p>Jornadas y Prácticas de Programación Avanzada &bull; Grado en Ingeniería Informática &bull; Universidad Pablo de Olavide</p>
+        </footer>
+    </div>
+
+</body>
+</html>

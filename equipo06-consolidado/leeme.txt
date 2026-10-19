@@ -1,0 +1,266 @@
+================================================================================
+                    DOCUMENTACIÓN DEL PROYECTO CONSOLIDADO
+                            EPD 3: JAVASCRIPT BÁSICO
+                                  (Equipo 06)
+================================================================================
+
+UNIVERSIDAD: Universidad Pablo de Olavide (UPO)
+GRADO: Grado en Ingeniería Informática
+ASIGNATURA: Programación Avanzada
+CURSO ACADÉMICO: 2026/2027
+EQUIPO: Equipo 06
+RESPONSABLE DE CONSOLIDACIÓN: Jonathan Javier Quishpe Maldonado
+DIRECTORIO CONSOLIDADO: equipo06-consolidado
+
+================================================================================
+          1. INTEGRANTES DEL EQUIPO Y REPARTO DE RESPONSABILIDADES
+================================================================================
+
+  • Limones Arredondo, Daniel:
+      - Ejercicio asignado: Ejercicio 1 (Ej1).
+      - Responsabilidad: Registro dinámico y análisis estadístico de calificaciones
+        de un grupo docente mediante prompt(), cálculos con Math y sort().
+
+  • Quishpe Maldonado, Jonathan Javier:
+      - Ejercicio asignado: Ejercicio 2 (Ej2).
+      - Responsabilidad: Implementación integral del cálculo de coste de envío de
+        paquetería según peso y dimensiones, diseño de la función modular calcular(),
+        desarrollo de la interfaz interactiva, homogeneización y consolidación global
+        de la entrega del equipo.
+
+  • Lillo Jiménez, Paola:
+      - Ejercicio asignado: Ejercicio 3 (Ej3).
+      - Responsabilidad: Procesamiento de códigos de actividades deportivas según
+        posiciones mediante charAt() y salida por alert().
+
+  • Martel Pérez Luna, Carolina María:
+      - Ejercicio asignado: Ejercicio 4 (Ej4).
+      - Responsabilidad: Desarrollo de tres páginas interactivas basadas en snippets
+        de JavaScript de la web CSS-Tricks (paleta de colores, quiz y sorteos).
+
+  • García Gutiérrez, Alejandro:
+      - Ejercicio asignado: Ejercicio 5 (Ej5).
+      - Responsabilidad: Gestión de actividades de gimnasio mediante vector de objetos,
+        funciones requeridas (mostrar, reservar, liberar, agregar) y menú do-while.
+
+  • Fernández Castillo, Coraima:
+      - Ejercicio asignado: Ejercicio 6 (Ej6).
+      - Responsabilidad: Simulación de lectura de códigos QR, parseo de parámetros de URL,
+        validaciones de reserva, cálculo de descuentos y maquetación de tabla de resultados.
+
+================================================================================
+          2. CUMPLIMIENTO DE LAS NORMAS GENERALES DE ENTREGA DEL GUIÓN
+================================================================================
+
+El guión oficial de la EPD 3 establece consideraciones de obligada observancia:
+
+1. ENTREGA POR CARPETAS INDEPENDIENTES:
+   "Para la evaluación de esta práctica se escogerá un ejercicio al azar para ser
+    evaluado. La nota total de la práctica dependerá de dicha calificación. Entregue
+    cada ejercicio en una carpeta diferente antes de subir el archivo zip como entrega."
+   -> CUMPLIDO: Dentro de 'equipo06-consolidado', cada ejercicio se aloja en su
+      propio subdirectorio autocontenido:
+      • /ejercicio1/
+      • /ejercicio2/
+      • /ejercicio3/
+      • /ejercicio4/
+      • /ejercicio5/
+      • /ejercicio6/
+      Cualquiera de ellos puede ser evaluado de forma totalmente aislada.
+
+2. EXCLUSIVAMENTE ARCHIVOS HTML Y JS:
+   "Por cada ejercicio, incluya únicamente los archivos HTML y JS necesarios para
+    resolver el ejercicio. Si usa un IDE, no envíe todo el proyecto por cada ejercicio
+    ya que será sancionado."
+   -> CUMPLIDO: Se han eliminado por completo carpetas de proyectos de IDE (nbproject/,
+      build/, dist/, .commandcode/, etc.) y ficheros residuales (.DS_Store). Cada carpeta
+      contiene únicamente su archivo .html y .js correspondiente.
+
+3. OPTIMIZACIÓN Y LIMPIEZA DE CÓDIGO:
+   -> CUMPLIDO: Modularización de funciones, nombres significativos, ausencia de
+      código muerto, control riguroso de errores y validaciones frente a entradas no
+      numéricas o valores nulos (cancelación en prompt).
+
+================================================================================
+                    3. DETALLE TÉCNICO DE CADA EJERCICIO
+================================================================================
+
+--------------------------------------------------------------------------------
+EJERCICIO 1 (ejercicio1/ejercicio1.html - ejercicio1.js)
+Responsable: Daniel Limones | Consolidación y mejoras: Jonathan Quishpe
+--------------------------------------------------------------------------------
+• Requisitos:
+  - Solicitar por prompt() el número total de calificaciones N (entero > 0).
+  - Solicitar secuencialmente cada una de las N notas (0 a 10, con decimales).
+  - Validación en bucle si el dato es no numérico o fuera de rango.
+  - Clasificación en 4 niveles:
+    * Sobresaliente: [8.0, 10.0]
+    * Notable:       [6.0, 8.0)
+    * Aprobado:      [4.0, 6.0)
+    * Suspenso:      [0.0, 4.0)
+  - Cálculos estadísticos:
+    * Nota media redondeada a dos decimales con Math.round().
+    * Nota máxima y mínima con Math.max() y Math.min().
+    * Recuento y porcentaje de estudiantes en cada nivel.
+    * Calificaciones ordenadas de mayor a menor y de menor a mayor usando
+      sort() con función de comparación numérica (a, b) => a - b.
+• Mejoras incorporadas en consolidación:
+  - Se corrigió la condición de validación en los bucles do-while para detectar
+    correctamente valores NaN cuando el usuario introduce texto alfabético o pulsa Cancelar.
+  - Se ajustó el rango de Notable para que no solape con Sobresaliente (nota < 8.0).
+  - Se añadió botón para cargar directamente el caso de prueba oficial del guión
+    (7.5, 9.2, 3.8, 8.1, 5.5) obteniendo los resultados exactos:
+    Media: 6.82 | Máx: 9.2 | Mín: 3.8 | Sobresaliente: 2 (40%) | Notable: 1 (20%) |
+    Aprobado: 1 (20%) | Suspenso: 1 (20%).
+
+--------------------------------------------------------------------------------
+EJERCICIO 2 (ejercicio2/ejercicio2.html - ejercicio2.js)
+Responsable: Jonathan Quishpe
+--------------------------------------------------------------------------------
+• Requisitos:
+  - Entrada de datos por prompt(): peso (kg), largo, ancho, alto (cm) y destino.
+  - Validaciones de entrada:
+    * Peso: numérico (acepta un decimal), > 0 y <= 30 kg.
+    * Dimensiones: números enteros > 0 y <= 120 cm.
+    * Destino: LOCAL, NACIONAL o INTERNACIONAL (insensible a mayúsculas/minúsculas).
+    * Mensaje unificado de error: ERROR: <<TIPO DE ERROR COMETIDO>>
+  - Fórmulas y reglas:
+    * pesoVolumetrico = (largo * ancho * alto) / 5000
+    * pesoFacturable = Math.ceil(Math.max(pesoReal, pesoVolumetrico))
+    * Tarifas: Local: 2.50 €/kg | Nacional: 4.00 €/kg | Internacional: 8.50 €/kg.
+    * Suplemento internacional: 12.00 € fijo para destinos internacionales.
+    * Recargo por peso elevado: 15% sobre el subtotal si pesoFacturable > 20 kg.
+  - Función exigida:
+    calcular(pesoReal, largo, ancho, alto, destino) devolviendo el objeto:
+    {
+      pesoReal: ...,
+      pesoVolumetrico: ...,
+      pesoFacturable: ...,
+      suplemento: ...,
+      recargo: ...,
+      precioTotal: ...
+    }
+  - Presentación en pantalla con formato exacto y dos decimales (toFixed(2)).
+• Casos de prueba verificados al 100%:
+  - Ejemplo 1 (Local): Peso 3 kg, 30x20x10 -> Total: 7.50€
+  - Ejemplo 2 (Nacional > 20kg): Peso 4.3 kg, 60x40x50 -> Recargo: 14.40€, Total: 110.40€
+  - Ejemplo 3 (Internacional): Peso 5 kg, 40x30x20 -> Suplemento: 12.00€, Total: 54.50€
+  - Ejemplo 4 (Datos incorrectos): Peso -2 -> ERROR: DATOS INCORRECTOS
+
+--------------------------------------------------------------------------------
+EJERCICIO 3 (ejercicio3/ejercicio3.html - ejercicio3.js)
+Responsable: Paola Lillo | Consolidación y mejoras: Jonathan Quishpe
+--------------------------------------------------------------------------------
+• Requisitos:
+  - Solicitar código de actividad deportiva mediante prompt().
+  - Aplicar reglas según la posición (utilizando charAt()):
+    * Posición 0: par -> mayúscula.
+    * Posiciones múltiplos de 5: reemplazo por '*'.
+    * Posiciones múltiplos de 3: minúscula (prioridad sobre par, ej. pos 6).
+    * Posiciones pares: mayúscula.
+    * Resto: sin cambios.
+  - Imprimir en alerta (alert()) el resultado obtenido.
+• Mejoras incorporadas en consolidación:
+  - Se corrigió el bug de la posición 0: en la versión previa, '0 % 3 === 0' se
+    ejecutaba en primer lugar, dejando la primera letra en minúscula y produciendo
+    'nAtAc*On2025' en lugar de 'NAtAc*On2025'. Se ajustó la prioridad estricta de
+    acuerdo a la explicación detallada del guión.
+  - Se añadió control frente a cancelación de prompt.
+
+--------------------------------------------------------------------------------
+EJERCICIO 4 (ejercicio4/index.html, pagina1.html, pagina2.html, pagina3.html)
+Responsable: Carolina Martel | Consolidación: Jonathan Quishpe
+--------------------------------------------------------------------------------
+• Requisitos:
+  - Crear 3 páginas distintas usando al menos tres snippets de https://css-tricks.com/snippets/javascript/.
+  - Indicar la página original de cada snippet.
+• Implementación:
+  - pagina1.html: Generador de paletas de colores con copia al portapapeles.
+    Snippet: "Random Hex Color".
+  - pagina2.html: Quiz interactivo de informática con preguntas aleatorias sin repetición.
+    Snippet: "Select Random Item from an Array".
+  - pagina3.html: Simulador de sorteos con filtrado de participantes únicos y mezcla aleatoria.
+    Snippet: "Shuffle Array" (Fisher-Yates).
+• Consolidación:
+  - Se añadió un índice centralizado (index.html) para navegar cómodamente entre
+    las tres páginas con descripciones y enlaces directos a las fuentes.
+
+--------------------------------------------------------------------------------
+EJERCICIO 5 (ejercicio5/ejercicio5.html - ejercicio5.js)
+Responsable: Alejandro García | Consolidación: Jonathan Quishpe
+--------------------------------------------------------------------------------
+• Requisitos:
+  - Gestión de actividades deportivas en gimnasio con vector de objetos (mínimo 10 actividades).
+  - Implementación de funciones obligatorias:
+    * mostrarActividades()
+    * reservarPlaza()
+    * liberarPlaza()
+    * agregarActividad()
+  - Menú interactivo con opciones (1. Mostrar, 2. Reservar, 3. Liberar, 4. Agregar, 5. Salir).
+• Mejoras incorporadas en consolidación:
+  - Se enriqueció la presentación incorporando una tabla gráfica en el DOM que
+    refleja el estado de las plazas en tiempo real de forma sincronizada con las
+    alertas del menú interactivo.
+
+--------------------------------------------------------------------------------
+EJERCICIO 6 (ejercicio6/ejercicio6.html - script.js)
+Responsable: Coraima Fernández | Consolidación y mejoras: Jonathan Quishpe
+--------------------------------------------------------------------------------
+• Requisitos:
+  - Simular lectura de código QR mediante prompt() pidiendo una URL.
+  - Extraer y validar parámetros: actividad, duración (30-120 min), id_participante (1-50).
+  - Cálculo de coste: base 1.50 €, duración > 30 min (+0.50 €), participante 1-15 (-10%).
+  - Mostrar tabla de resultados con desglose de parámetros y estado (RESERVA REALIZADA / RESERVA RECHAZADA).
+• Mejoras incorporadas en consolidación:
+  - Se protegió la extracción de parámetros frente a cancelaciones en prompt().
+  - Se hizo insensible al orden de parámetros en la URL (?actividad=...&duracion=...&id_participante=...).
+  - Se armonizaron los mensajes de rechazo exactamente con los especificados en el guión:
+    "Incorrecto - Actividad no reconocida", "Incorrecto - Duración máxima excedida", "Incorrecto".
+
+================================================================================
+                    4. ESTRUCTURA FINAL DEL DIRECTORIO
+================================================================================
+
+equipo06-consolidado/
+├── index.html                   (Portal principal de navegación del equipo 06)
+├── leeme.txt                    (Esta documentación técnica completa)
+├── equipo06.txt                 (Relación oficial de miembros del equipo)
+├── ejercicio1/
+│   ├── index.html               (Redirección limpia a ejercicio1.html)
+│   ├── ejercicio1.html          (Interfaz web del ejercicio 1)
+│   └── ejercicio1.js            (Script de calificaciones y estadísticas)
+├── ejercicio2/
+│   ├── index.html               (Redirección limpia a ejercicio2.html)
+│   ├── ejercicio2.html          (Interfaz web del ejercicio 2)
+│   └── ejercicio2.js            (Script de cálculo de envío y validaciones)
+├── ejercicio3/
+│   ├── index.html               (Redirección limpia a ejercicio3.html)
+│   ├── ejercicio3.html          (Interfaz web del ejercicio 3)
+│   └── ejercicio3.js            (Script de procesamiento de códigos con charAt)
+├── ejercicio4/
+│   ├── index.html               (Hub de las 3 páginas de snippets)
+│   ├── pagina1.html             (Paletas aleatorias - Random Hex Color)
+│   ├── pagina2.html             (Quiz interactivo - Random Array Item)
+│   └── pagina3.html             (Simulador sorteos - Shuffle Array)
+├── ejercicio5/
+│   ├── index.html               (Redirección limpia a ejercicio5.html)
+│   ├── ejercicio5.html          (Interfaz web del ejercicio 5)
+│   └── ejercicio5.js            (Script de gestión de actividades de gimnasio)
+└── ejercicio6/
+    ├── index.html               (Redirección limpia a ejercicio6.html)
+    ├── ejercicio6.html          (Interfaz web del ejercicio 6)
+    └── script.js                (Script de validación y cálculo de reserva QR)
+
+================================================================================
+                    5. INSTRUCCIONES DE EJECUCIÓN
+================================================================================
+
+1. Para evaluar la práctica completa de forma integrada:
+   - Abra en cualquier navegador web moderno el archivo 'index.html' situado en la
+     raíz de 'equipo06-consolidado'.
+   - Desde dicho portal podrá lanzar cualquiera de los 6 ejercicios con un solo clic.
+
+2. Para evaluar un ejercicio individual al azar (tal como estipula el guión):
+   - Abra directamente el archivo 'index.html' o 'ejercicioX.html' de la carpeta correspondiente.
+   - Cada carpeta es 100% independiente y autónoma, sin referencias cruzadas que
+     impidan su funcionamiento aislado.

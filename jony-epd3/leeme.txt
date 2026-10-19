@@ -1,0 +1,114 @@
+================================================================================
+                    DOCUMENTACIÓN TÉCNICA - EPD 3 (Ejercicio 2)
+                        Cálculo de Coste de Envío de Paquetes
+                                    (Equipo 06)
+================================================================================
+
+ESTUDIANTE: Jonathan Javier Quishpe Maldonado
+ASIGNATURA: Programación Avanzada - Grado en Ingeniería Informática
+CURSO ACADÉMICO: 2026/2027
+PRÁCTICA: EPD 3 - JavaScript Básico
+EJERCICIO ASIGNADO: Ejercicio 2 (Ej2)
+DIRECTORIO: jony-epd3 / equipo06-consolidado/ejercicio2
+
+================================================================================
+                        1. DESCRIPCIÓN DEL EJERCICIO
+================================================================================
+
+Implementación de un programa modular en JavaScript que calcula el coste de
+envío de un paquete a partir de los datos solicitados secuencialmente al
+usuario mediante la función prompt().
+
+Entrada de datos:
+  1. Peso del paquete en kilogramos (pesoReal).
+  2. Dimensiones del paquete en centímetros: largo, ancho y alto.
+  3. Tipo de destino: LOCAL, NACIONAL o INTERNACIONAL (insensible a mayúsculas).
+
+Validaciones exigidas:
+  • Peso real: valor numérico mayor que 0 y menor o igual a 30 kg (acepta
+    como máximo un decimal).
+  • Cada una de las dimensiones (largo, ancho, alto): número entero mayor
+    que 0 y menor o igual a 120 cm.
+  • Tipo de destino: debe coincidir exactamente con una de las tres opciones
+    válidas (LOCAL, NACIONAL o INTERNACIONAL), permitiendo cualquier combinación
+    de mayúsculas y minúsculas.
+  • Mensaje unificado de error: si cualquiera de los datos es incorrecto o
+    no numérico, el programa devuelve y presenta exactamente el mensaje:
+    ERROR: <<TIPO DE ERROR COMETIDO>>
+
+Reglas de cálculo implementadas:
+  • Peso volumétrico:
+      pesoVolumetrico = (largo * ancho * alto) / 5000
+  • Peso facturable:
+      pesoFacturable = Math.ceil(Math.max(pesoReal, pesoVolumetrico))
+  • Tarifas por kilogramo facturable:
+      - LOCAL: 2.50 €/kg
+      - NACIONAL: 4.00 €/kg
+      - INTERNACIONAL: 8.50 €/kg
+  • Suplemento fijo internacional:
+      - Envíos a destino INTERNACIONAL suman un suplemento fijo de 12.00 €.
+      - Destinos LOCAL y NACIONAL: 0.00 €.
+  • Recargo por peso elevado:
+      - Si pesoFacturable > 20 kg, se aplica un 15% sobre el subtotal del envío.
+  • Función obligatoria 'calcular(pesoReal, largo, ancho, alto, destino)':
+      Retorna un objeto con el desglose del envío:
+      {
+        pesoReal: ...,
+        pesoVolumetrico: ...,
+        pesoFacturable: ...,
+        suplemento: ...,
+        recargo: ...,
+        precioTotal: ...
+      }
+  • Presentación en pantalla:
+      Formateo estricto con dos decimales mediante .toFixed(2), respetando
+      la salida de los ejemplos oficiales del guión.
+
+================================================================================
+                    2. VERIFICACIÓN DE CASOS DE PRUEBA
+================================================================================
+
+CASO 1: Envío Local (Ejemplo 1 del guión)
+  Entrada: Peso: 3 kg | Dimensiones: 30 x 20 x 10 cm | Destino: local
+  Resultado obtenido:
+    Peso real: 3 kg
+    Peso volumétrico: 1.20 kg
+    Peso facturable: 3 kg
+    Precio del envío: 7.50€
+  Estado: CORRECTO (Coincidencia exacta con el guión).
+
+CASO 2: Uso de peso volumétrico y recargo (> 20 kg) (Ejemplo 2 del guión)
+  Entrada: Peso: 4.3 kg | Dimensiones: 60 x 40 x 50 cm | Destino: NACIONAL
+  Resultado obtenido:
+    Peso real: 4.3 kg
+    Peso volumétrico: 24.00 kg
+    Peso facturable: 24 kg
+    Recargo por peso elevado: 14.40€
+    Precio del envío: 110.40€
+  Estado: CORRECTO (Coincidencia exacta con el guión).
+
+CASO 3: Envío internacional con suplemento (Ejemplo 3 del guión)
+  Entrada: Peso: 5 kg | Dimensiones: 40 x 30 x 20 cm | Destino: internacional
+  Resultado obtenido:
+    Peso real: 5 kg
+    Peso volumétrico: 4.80 kg
+    Peso facturable: 5 kg
+    Suplemento internacional: 12.00€
+    Precio del envío: 54.50€
+  Estado: CORRECTO (Coincidencia exacta con el guión).
+
+CASO 4: Validación de datos incorrectos (Ejemplo 4 del guión)
+  Entrada: Peso: -2
+  Resultado obtenido:
+    ERROR: DATOS INCORRECTOS - El peso debe ser mayor que 0 y menor o igual a 30 kg
+  Estado: CORRECTO (Coincidencia exacta con el guión).
+
+================================================================================
+                    3. ARCHIVOS INCLUIDOS EN LA ENTREGA
+================================================================================
+
+• ejercicio2.html : Interfaz web semántica y responsive con carga automática
+                    de prompt() y botones interactivos de prueba.
+• ejercicio2.js   : Script modular con la lógica de cálculo, validaciones y
+                    formateo mediante toFixed(2).
+• leeme.txt       : Documentación técnica del ejercicio.

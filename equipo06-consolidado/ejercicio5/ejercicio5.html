@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5 - Gestión de Actividades Deportivas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            color: #333333;
+            padding: 30px 15px;
+            line-height: 1.6;
+        }
+
+        .contenedor {
+            background-color: #ffffff;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            border-bottom: 2px solid #1f4e79;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #1f4e79;
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .autor {
+            color: #555555;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .descripcion {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 20px;
+            background: #eef4fa;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border-left: 4px solid #1f4e79;
+        }
+
+        .panel-acciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-principal {
+            background-color: #1f4e79;
+            color: #ffffff;
+            font-size: 14px;
+            padding: 11px 20px;
+        }
+
+        .btn-principal:hover {
+            background-color: #153755;
+        }
+
+        .btn-accion {
+            background-color: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-accion:hover {
+            background-color: #cbd5e1;
+        }
+
+        .tabla-gimnasio {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .tabla-gimnasio th,
+        .tabla-gimnasio td {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .tabla-gimnasio th {
+            background-color: #1f4e79;
+            color: #ffffff;
+        }
+
+        .tabla-gimnasio tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .badge-disponible {
+            background-color: #dcfce7;
+            color: #166534;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .badge-agotado {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .volver-hub {
+            display: inline-block;
+            margin-top: 25px;
+            color: #1f4e79;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .volver-hub:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        <header>
+            <h1>Gestión de Actividades Deportivas</h1>
+            <p class="autor">EPD 3 - Ejercicio 5 | Alejandro García Gutiérrez (Equipo 06)</p>
+        </header>
+
+        <section class="descripcion">
+            <p>Aplicación de gestión de actividades del gimnasio. Utiliza un vector de objetos y permite listar actividades, reservar plazas, liberar plazas y añadir nuevas actividades interactivamente mediante <code>prompt()</code> y <code>alert()</code>.</p>
+        </section>
+
+        <div class="panel-acciones">
+            <button class="btn-principal" onclick="iniciarMenuInteractivo()">Abrir menú completo (1-5)</button>
+            <button class="btn-accion" onclick="mostrarActividades()">1. Mostrar</button>
+            <button class="btn-accion" onclick="reservarPlaza()">2. Reservar</button>
+            <button class="btn-accion" onclick="liberarPlaza()">3. Liberar</button>
+            <button class="btn-accion" onclick="agregarActividad()">4. Agregar</button>
+        </div>
+
+        <main>
+            <h3 style="color: #1f4e79; margin-bottom: 10px;">Estado en tiempo real de las actividades:</h3>
+            <div id="tabla-actividades"></div>
+        </main>
+
+        <a href="../index.html" class="volver-hub">&larr; Volver al índice consolidado del Equipo 06</a>
+
+        <footer>
+            <p>Programación Avanzada - Grado en Ingeniería Informática - Universidad Pablo de Olavide</p>
+        </footer>
+    </div>
+
+    <script src="ejercicio5.js"></script>
+</body>
+</html>

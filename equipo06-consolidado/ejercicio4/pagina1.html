@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 1 - Generador de Paletas de Colores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #1f4e79;
+        }
+
+        #paleta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .color {
+            width: 150px;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 3px 8px #aaa;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .color:hover {
+            transform: scale(1.05);
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #1f4e79;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background-color: #153755;
+        }
+
+        .volver-hub {
+            display: inline-block;
+            margin-top: 30px;
+            color: #1f4e79;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .volver-hub:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Generador de paletas de colores</h1>
+    <p>Pulsa el botón para generar cinco colores aleatorios. Haz clic sobre cualquier color para copiar su código hexadecimal.</p>
+
+    <button onclick="generarPaleta()">Generar paleta</button>
+
+    <div id="paleta"></div>
+
+    <p id="mensaje" aria-live="polite" style="margin-top: 15px; font-weight: bold; color: #166534;"></p>
+
+    <p style="margin-top: 20px; font-size: 13px; color: #555;">
+        Fragmento original:
+        <a href="https://css-tricks.com/snippets/javascript/random-hex-color/" target="_blank">
+            CSS-Tricks - Random Hex Color
+        </a>
+    </p>
+
+    <p><a href="index.html" class="volver-hub">&larr; Volver al índice del Ejercicio 4</a> | <a href="../index.html" class="volver-hub">Volver al índice general</a></p>
+
+    <script>
+        // Genera un color hexadecimal aleatorio.
+        // Basado en el snippet "Random Hex Color" de CSS-Tricks.
+        function generarColor() {
+            return '#' + Math.floor(Math.random() * 16777215)
+                    .toString(16).padStart(6, '0');
+        }
+
+        // Genera una paleta formada por cinco colores.
+        function generarPaleta() {
+            const paleta = document.getElementById("paleta");
+            paleta.innerHTML = "";
+
+            for (let i = 0; i < 5; i++) {
+                const codigo = generarColor();
+
+                const cuadro = document.createElement("div");
+                cuadro.className = "color";
+                cuadro.style.backgroundColor = codigo;
+                cuadro.textContent = codigo.toUpperCase();
+
+                // Al pulsar el color, copia su código.
+                cuadro.addEventListener("click", function () {
+                    copiarColor(codigo);
+                });
+
+                paleta.appendChild(cuadro);
+            }
+
+            document.getElementById("mensaje").textContent = "";
+        }
+
+        // Copia el color seleccionado al portapapeles.
+        async function copiarColor(codigo) {
+            try {
+                await navigator.clipboard.writeText(codigo);
+                document.getElementById("mensaje").textContent =
+                        "¡Color " + codigo.toUpperCase() + " copiado al portapapeles!";
+            } catch (error) {
+                document.getElementById("mensaje").textContent =
+                        "No se pudo copiar automáticamente. Código: " + codigo;
+            }
+        }
+
+        // Genera la primera paleta al cargar la página.
+        generarPaleta();
+    </script>
+
+</body>
+</html>

@@ -1,6 +1,9 @@
 function reserva() {
 
     var url = prompt("Introduce la URL del código QR:");
+    if (url === null) {
+        return;
+    }
 
     // Extraer los datos de la URL
     var partes = url.split("?");
